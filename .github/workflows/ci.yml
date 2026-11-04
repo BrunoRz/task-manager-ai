@@ -1,5 +1,8 @@
 name: CI
 
+permissions:
+  contents: write
+  
 on:
   push:
     branches:
@@ -20,3 +23,8 @@ jobs:
         run: npm ci
       - name: Verify app syntax
         run: node --check backend/app.js
+      - name: Deploy Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend
